@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angular QuickStart</title>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+    <script src="systemjs.config.js"></script>
+    <script>
+      System.import('main.js').catch(function(err){ console.error(err); });
+    </script>
+
+    <!--- angularjs stuff -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  </head>
+
+  <body>
+    <div class="row">
+      <div class="col-md-6">
+        <div ng-app = "myApp" >
+          <!-- communication b/w controllers -->
+            <div ng-controller="fC">
+              <input type="text" ng-model="data.message"/>
+              <h1>{{ data.message }}</h1>
+            </div>
+            <div ng-controller="sC">
+              <input type="text" ng-model="data.message"/>
+              <h1>{{ data.message | reverse }}</h1>
+            </div>
+
+            <div ng-controller="colorCntrl">
+              <!-- directives -->
+              <superhero></superhero>
+              <div superhero1></div>
+              <div class="superhero2"></div>
+              <!-- directive with behaviour -->
+              <behaviour></behaviour>
+              <!-- table with search -->
+              <input type="text" ng-model="serachTable"/>
+              <table>
+                <tr ng-repeat="cl in colors | filter:serachTable">
+                  <td>{{cl.color}}</td>
+                  <td>{{cl.value}}</td>
+                </tr>
+              </table>
+              <br>
+              <!-- table with orderby -->
+              <table>
+                <tr ng-repeat="cl in colors | orderBy:'color'">
+                  <td>{{cl.color}}</td>
+                  <td>{{cl.value}}</td>
+                </tr>
+              </table>
+            </div>
+            <!-- select tag with filter -->
+            <div ng-controller="selectCntrl">
+              <input type="text" ng-model="selectSearch">
+              <select>
+                <option ng-repeat="cl in colors | filter:selectSearch" value="{{cl.value}}">{{cl.color}}</option>
+              </select>
+            </div>
+          </div>
+      </div>
+      <div class="col-md-6">
+      </div>
+    </div>
+
+
+    <script src="scripts/apps/myApp.js"></script>
+    <script src="scripts/controllers/firstController.js"></script>
+    <script src="scripts/directives/firstDirective.js"></script>
+  </body>
+</html>
